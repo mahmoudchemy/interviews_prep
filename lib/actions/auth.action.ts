@@ -69,11 +69,11 @@ export async function signIn (params:SignInParams){
     }
 }
 
-export async function setSessionCookie(idToken:string){
+ export async function setSessionCookie(idToken:string){
     const cookieStore = await cookies();
  
     const sessionCookie = await auth.createSessionCookie(idToken,{
-        expiresIn: ONE_WEEK* 10000,
+        expiresIn: ONE_WEEK * 10000,
     })
 
     cookieStore.set('session',sessionCookie,{
@@ -86,6 +86,7 @@ export async function setSessionCookie(idToken:string){
 }
 
 export async function getCurrentUser (): Promise<User | null> {
+
     const cookieStore = await cookies();
 
     const sessionCookie = cookieStore.get('session')?.value;
@@ -103,7 +104,7 @@ export async function getCurrentUser (): Promise<User | null> {
         if(!userRecord.exists) return null;
 
         return {
-            ...userRecord.data(),
+            ... userRecord.data(),
             id: userRecord.id,
         } as User;
         
@@ -116,7 +117,8 @@ export async function getCurrentUser (): Promise<User | null> {
 }
 
 export async function isAuthenticated(){
-    const user = await getCurrentUser();
 
-    return !!user;
+   const user = await getCurrentUser();
+
+   return !!user;
 }
